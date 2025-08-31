@@ -1,0 +1,27 @@
+# Sensitive files - exclude from version control
+
+# PulseAudio authentication cookie
+.config/pulse/cookie
+
+# Warp terminal preferences (contains usage stats and repo paths)
+.config/warp-terminal*/user_preferences.json
+
+# dconf user database (contains personal system settings)
+.config/dconf/user
+
+# Evolution data sources (personal calendar/contact info)
+.config/evolution/sources/
+
+# Any other potential sensitive files
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+*.cert
+*id_rsa*
+*id_ed25519*
+.env*
+*secret*
+*password*
+*token*
