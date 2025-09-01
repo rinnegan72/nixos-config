@@ -115,6 +115,7 @@
     cargo
     clippy
     rust-analyzer
+    lazygit
   #  wget
   ];
   fonts.packages = with pkgs; [ nerd-fonts.hack ];
