@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports =
@@ -118,8 +118,32 @@
     lazygit
   #  wget
   ];
-  fonts.packages = with pkgs; [ nerd-fonts.hack ];
-
+  # Font configuration
+  fonts = {
+    packages = with pkgs; [
+      # Core fonts
+      dejavu_fonts
+      liberation_ttf
+      source-code-pro
+      
+      # Nerd Fonts (using new NixOS 25.05 syntax)
+      nerd-fonts.jetbrains-mono
+      nerd-fonts.fira-code
+      nerd-fonts.hack
+      nerd-fonts.sauce-code-pro
+      nerd-fonts.dejavu-sans-mono
+    ];
+    
+    # Enable font configuration
+    fontconfig = {
+      enable = true;
+      defaultFonts = {
+        monospace = [ "JetBrainsMono Nerd Font" "DejaVu Sans Mono" ];
+        sansSerif = [ "DejaVu Sans" ];
+        serif = [ "DejaVu Serif" ];
+      };
+    };
+  };
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
