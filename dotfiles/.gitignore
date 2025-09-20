@@ -4,8 +4,19 @@
 .config/pulse/cookie
 
 # Warp terminal preferences (contains usage stats and repo paths)
-.config/warp-terminal*/user_preferences.json
 .config/vivaldi*
+.config/dconf
+.config/epiphany
+.config/evolution
+.config/gnome-session
+.config/goa-1.0
+.config/gtk-3.0
+.config/ibus
+.config/pulse
+.config/unity3d
+.config/warp-terminal
+.config/.gsd-keyboard.settings-ported
+.config/gnome-initial-setup-done
 # dconf user database (contains personal system settings)
 .config/dconf/user
 
