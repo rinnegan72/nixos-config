@@ -5,7 +5,7 @@
 
 # Warp terminal preferences (contains usage stats and repo paths)
 .config/warp-terminal*/user_preferences.json
-
+.config/vivaldi*
 # dconf user database (contains personal system settings)
 .config/dconf/user
 
