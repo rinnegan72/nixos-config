@@ -10,6 +10,7 @@
       ./hardware-configuration.nix
     ];
 
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -49,8 +50,13 @@
   services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
+  
+  # Enable COSMIC Desktop Environment alongside GNOME
+  # Temporarily disabled due to hash mismatch issues in nixos-cosmic flake
+  # Re-enable in a few days when upstream fixes are available
+  # services.desktopManager.cosmic.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -93,6 +99,18 @@
   # Install firefox.
   programs.firefox.enable = true;
 
+  # Disabled NixOS Steam in favor of Flatpak Steam
+  # programs.steam = {
+  #   enable = true;
+  #   remotePlay.openFirewall = true;
+  #   dedicatedServer.openFirewall = true;
+  #   extraCompatPackages = with pkgs; [
+  #     steam-run
+  #   ];
+  # };
+
+  # Enable Flatpak for Steam and other applications
+  services.flatpak.enable = true;
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -105,7 +123,7 @@
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     git
     curl
-    warp-terminal
+    unstable.warp-terminal  # Use warp-terminal from unstable to avoid hash mismatch
     vivaldi
     starship
     neovim
@@ -119,6 +137,9 @@
     clippy
     rust-analyzer
     lazygit
+    wl-clipboard
+    # steam-run  # Not needed anymore - using Flatpak Steam instead
+    inputs.vicinae.packages.${"x86_64-linux"}.default
   #  wget
   ];
   # Font configuration
@@ -156,6 +177,24 @@
   # };
 
   # List services that you want to enable:
+
+  # Enable vicinae user service
+  systemd.user.services.vicinae = {
+    description = "Vicinae Launcher Daemon";
+    documentation = [ "https://docs.vicinae.com" ];
+    after = [ "graphical-session.target" ];
+    wants = [ "graphical-session.target" ];
+    wantedBy = [ "graphical-session.target" ];
+    
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "${pkgs.writeShellScript "vicinae-server" ''${inputs.vicinae.packages.${"x86_64-linux"}.default}/bin/vicinae server''}";
+      ExecReload = "/bin/kill -HUP $MAINPID";
+      Restart = "always";
+      RestartSec = "5";
+      KillMode = "process";
+    };
+  };
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;

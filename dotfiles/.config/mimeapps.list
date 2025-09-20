@@ -1,0 +1,13 @@
+[Default Applications]
+x-scheme-handler/http=vivaldi-stable.desktop
+application/xhtml+xml=vivaldi-stable.desktop
+text/html=vivaldi-stable.desktop
+x-scheme-handler/https=vivaldi-stable.desktop
+x-scheme-handler/mailto=org.gnome.Geary.desktop
+
+[Added Associations]
+x-scheme-handler/http=vivaldi-stable.desktop;
+application/xhtml+xml=vivaldi-stable.desktop;
+text/html=vivaldi-stable.desktop;
+x-scheme-handler/https=vivaldi-stable.desktop;
+x-scheme-handler/mailto=vivaldi-stable.desktop;org.gnome.Geary.desktop;
