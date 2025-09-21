@@ -3,6 +3,6 @@
 	url = git@github.com:rinnegan72/nvim.git
   branch = main
 [submodule "dotfiles/.config/tmux"]
-  path = dotfiles/.config/tmux
-  url = git@github.com:rinnegan72/tmux.git
-  branch = main
+	path = dotfiles/.config/tmux
+	url = git@github.com:rinnegan72/tmux.git
+	branch = main
