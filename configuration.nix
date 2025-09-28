@@ -86,11 +86,12 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # Define a user account. Don't forget to set a password with 'passwd'.
   users.users.sriramr = {
     isNormalUser = true;
     description = "Sriram Ramesh";
     extraGroups = [ "networkmanager" "wheel" ];
+    shell = pkgs.zsh;
     packages = with pkgs; [
     #  thunderbird
     ];
@@ -98,6 +99,20 @@
 
   # Install firefox.
   programs.firefox.enable = true;
+# Enable zsh
+  programs.zsh.enable = true;
+# Enable Oh-my-zsh
+  programs.zsh.ohMyZsh = {
+    enable = true;
+    plugins = [ "git" "sudo" "docker" "kubectl" "tmux"];
+  };
+
+# Add Starship and Atuin initialization to zsh configuration
+  programs.zsh.interactiveShellInit = ''
+    eval "$(starship init zsh)"
+    eval "$(atuin init zsh)"
+    alias tmux='tmux -u'
+  '';
 
   # Disabled NixOS Steam in favor of Flatpak Steam
   # programs.steam = {
@@ -138,6 +153,11 @@
     rust-analyzer
     lazygit
     wl-clipboard
+    alacritty
+    atuin
+    tmux
+    # C compiler and build tools for Tree-sitter
+    zig
     # steam-run  # Not needed anymore - using Flatpak Steam instead
     inputs.vicinae.packages.${"x86_64-linux"}.default
   #  wget
